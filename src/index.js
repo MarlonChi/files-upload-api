@@ -1,12 +1,22 @@
-const express = require('express')
-const morgan = require('morgan')
+const express = require("express");
+const morgan = require("morgan");
+const mongoose = require("mongoose");
 
-const app = express()
+require("dotenv").config();
 
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-app.use(morgan('dev'))
+const uri = process.env.MONGO_URL;
 
-app.use(require('./routes'))
+mongoose.connect(uri),
+  {
+    useNewUrlParser: true,
+  };
 
-app.listen(3000)
+const app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(morgan("dev"));
+
+app.use(require("./routes"));
+
+app.listen(3000);
