@@ -4,6 +4,7 @@ const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const path = require("path");
+const cors = require("cors");
 
 const uri = process.env.MONGO_URL;
 
@@ -14,6 +15,7 @@ mongoose.connect(uri),
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
